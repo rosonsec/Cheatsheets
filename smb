@@ -1,0 +1,8 @@
+# List shares
+smblient -L 10.10.10.10
+smblient -L 10.10.10.10 -U root
+
+smbmap -H <ipaddress>
+
+# Connect to share
+smbclient 10.10.10.10/share -U root
