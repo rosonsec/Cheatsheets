@@ -6,3 +6,5 @@ echo "\x68\x65\x6c\x6c\x6f" | tr '\\' '0' | xxd -r
 echo "68 65 6c 6c 6f" | xxd -r -p
 echo "68656c6c6f" | xxd -r -p
 
+--> To force a new line after result:
+echo "68656c6c6f" | xxd -r -p | xargs echo
