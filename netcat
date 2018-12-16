@@ -1,0 +1,2 @@
+# Port scanner 
+nc -nvv -w 1 -z 10.10.10.10 1-100
