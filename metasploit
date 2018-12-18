@@ -1,7 +1,5 @@
-# List all payloads
+# List 
 msfvenom -l payloads
-
-# List all payloads
 msfvenom -l formats
 
 # Create an staged Windows binary payload
