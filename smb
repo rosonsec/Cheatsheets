@@ -2,7 +2,10 @@
 smblient -L 10.10.10.10
 smblient -L 10.10.10.10 -U root
 
-smbmap -H <ipaddress>
+smbmap -H 10.10.10.10
 
 # Connect to share
 smbclient 10.10.10.10/share -U root
+
+# Mount share
+mount -t cifs -o user=root,sec=ntlm,dir_mode=0077 "//10.10.10.10/share" /mnt/cifs
