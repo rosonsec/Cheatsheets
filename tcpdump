@@ -1,0 +1,36 @@
+# Filter by interface
+tcpdump -i eth0
+tcpdump -i any
+
+# Filter by host
+tcpdump -n host 10.10.10.10
+tcpdump -n src host 10.10.10.10
+tcpdump -n dst host 10.10.10.10
+
+# Filter by network
+tcpdump -n net 10.10.10.0/24
+
+# Filter by port
+tcpdump -n port 23
+tcpdump -n sr port 23
+tcpdump -n dst port 23
+tcpdump -n src portrange 1-1023
+
+# Filter by protocol
+tcpdump -v icmp
+tcpdump -v "icmp or arp"
+tcpdump -n tcp 
+
+# Read capture from a file
+tcpdump -r capture.pcap
+
+# Write capture to a file
+tcpdump -w capture.pcap
+
+# Limit capture to number of packets
+tcpdump -c 200
+
+# Verbose
+tcpdump -v
+tcpdump -vv
+tcpdump -vvv
