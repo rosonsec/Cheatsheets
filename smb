@@ -1,11 +1,16 @@
 # List shares
-smblient -L 10.10.10.10
-smblient -L 10.10.10.10 -U root
+smbclient -L 10.10.10.10
+smbclient -L 10.10.10.10 -U root
+smbclient -L 10.10.10.10 -U " " -N
 
 smbmap -H 10.10.10.10
+smbmap -H 10.10.10.10 -u " " -p " "
 
 # Connect to share
-smbclient 10.10.10.10/share -U root
+smbclient //10.10.10.10/share -U root
+smbclient \\\\10.10.10.10\\share -U root
+smbclient //10.10.10.10/share -U " "
+smbclient //10.10.10.10/share -U " " -N
 
 # Mount share
 mount -t cifs -o user=root,sec=ntlm,dir_mode=0077 "//10.10.10.10/share" /mnt/cifs
