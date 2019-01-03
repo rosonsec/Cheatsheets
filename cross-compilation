@@ -1,6 +1,11 @@
-# Compiling windows binaries on Linux
+# Compiling C to .exe on Linux
 i686-w64-mingw32-gcc useradd.c -o useradd.exe
 i686-w64-mingw32-gcc exploit.c -lws2_32 -o exploit.exe
 
+# Compiling PYTHON to .exe on Linux
+pip install pyinstaller
+python pyinstaller.py --onefile exploit.py exploit.exe
+
 # Executing from Linux
 wine exploit.exe 10.10.10.10
+
