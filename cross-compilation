@@ -2,10 +2,30 @@
 i686-w64-mingw32-gcc useradd.c -o useradd.exe
 i686-w64-mingw32-gcc exploit.c -lws2_32 -o exploit.exe
 
-# Compiling PYTHON to .exe on Linux
-pip install pyinstaller
-pyinstaller --onefile exploit.py exploit.exe
-
 # Executing from Linux
 wine exploit.exe 10.10.10.10
 
+
+# Compiling PYTHON to .exe on Windows
+pip install pyinstaller
+pyinstaller --onefile exploit.py 
+
+
+# Compiling PYTHON to .exe on Linux
+1. Install python for windows
+wget https://www.python.org/ftp/python/2.7.8/python-2.7.8.msi
+wine msiexec /i python-2.7.8.msi
+rm python-2.7.8.msi
+
+2. Install pywin32
+wget http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20220/pywin32-220.win32-py2.7.exe
+wine pywin32–220.win32-py2.7.exe
+rm pywin32–220.win32-py2.7.exe
+
+3. Install pyinstaller
+wget https://github.com/pyinstaller/pyinstaller/releases/download/v2.1/PyInstaller-2.1.zip
+unzip PyInstaller-2.1.zip -d /opt
+rm PyInstaller-2.1.zip
+
+4. Convert python to exe
+wine c:/Python27/python.exe /opt/PyInstaller-2.1/pyinstaller.py — onefile evil.py
