@@ -210,7 +210,7 @@ https://github.com/GDSSecurity/Windows-Exploit-Suggester
 systeminfo > systeminfo.txt
 - Attacker
 ./windows-exploit-suggester.py --update
-./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo systeminfo.txt 
+./windows-exploit-suggester.py -d BulletinSearch.xlsx -i systeminfo.txt 
 
 ###############
 # Getting GUI #
