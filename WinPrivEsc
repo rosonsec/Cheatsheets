@@ -31,11 +31,6 @@ tasklist /SVC
 net start
 --> Driver madness (3rd party drivers may have holes) 
 DRIVERQUERY
---> Check systeminfo output against exploit-suggester 
-https://github.com/GDSSecurity/Windows-Exploit-Suggester/blob/master/windows-exploit-suggester.py
-python windows-exploit-suggester.py -d 2017-05-27-mssb.xls -i systeminfo.txt 
---> Run windows-privesc script 
-https://github.com/pentestmonkey/windows-privesc-check
 
 # WMIC
 
@@ -201,7 +196,6 @@ reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
 reg query HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4 /v password
 
 
-
 #####################
 # Exploit Suggester #
 #####################
@@ -211,6 +205,7 @@ systeminfo > systeminfo.txt
 - Attacker
 ./windows-exploit-suggester.py --update
 ./windows-exploit-suggester.py -d BulletinSearch.xlsx -i systeminfo.txt 
+
 
 ###############
 # Getting GUI #
