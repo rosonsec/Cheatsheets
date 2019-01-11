@@ -201,6 +201,17 @@ reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
 reg query HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\WinVNC4 /v password
 
 
+
+#####################
+# Exploit Suggester #
+#####################
+https://github.com/GDSSecurity/Windows-Exploit-Suggester
+- Victim
+systeminfo > systeminfo.txt
+- Attacker
+./windows-exploit-suggester.py --update
+./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo systeminfo.txt 
+
 ###############
 # Getting GUI #
 ###############
