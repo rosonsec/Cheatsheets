@@ -1,0 +1,10 @@
+# Error execution:
+error while loading shared libraries: requires glibc 2.5 or later dynamic linker
+
+- Original compilation:
+gcc -Wall exploit.c -o exploit
+gcc exploit.c -o exploit
+
+- Fixing compilation:
+gcc -Wl,--hash-style=both exploit.c -o exploit
+gcc -m32 -Wl,--hash-style=both exploit.c -o exploit
