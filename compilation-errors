@@ -1,4 +1,4 @@
-# Error execution:
+# Error executing:
 error while loading shared libraries: requires glibc 2.5 or later dynamic linker
 
 - Original compilation:
@@ -8,3 +8,23 @@ gcc exploit.c -o exploit
 - Fixing compilation:
 gcc -Wl,--hash-style=both exploit.c -o exploit
 gcc -m32 -Wl,--hash-style=both exploit.c -o exploit
+
+
+# Error compiling:
+warning: implicit declaration of function ‘setgid’ [-Wimplicit-function-declaration]
+warning: implicit declaration of function ‘setuid’ [-Wimplicit-function-declaration]
+warning: implicit declaration of function ‘execl’ [-Wimplicit-function-declaration]
+
+- Fix:
+#include <unistd.h>
+
+
+# Error compiling:
+warning: return type defaults to ‘int’ [-Wimplicit-int]
+ main(int argc, char **argv) {
+
+- Original code:
+main(int argc, char **argv) {
+
+- Fixing code:
+int main(int argc, char **argv) {
