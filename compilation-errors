@@ -28,3 +28,10 @@ main(int argc, char **argv) {
 
 - Fixing code:
 int main(int argc, char **argv) {
+
+
+# Error compiling:
+warning: implicit declaration of function ‘memcpy’ [-Wimplicit-function-declaration]
+
+- Fix:
+#include <string.h>
