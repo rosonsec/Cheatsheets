@@ -1,6 +1,6 @@
 # Port scanner 
 nc -nvv -w 1 -z 10.10.10.10 1-100
-
+nc -nvv -w 1 -z 10.10.10.10 1-100 > nc_scan.txt 2>&1
 
 # ncat (nmap suite)
 ncat -nlvp 4444 -e cmd.exe --allow 10.10.10.10 --ssl
