@@ -90,6 +90,7 @@ Search for services that have a binary path (binpath) property which can be modi
 *Windows XP shipped with several vulnerable built-in services. 
 
 accesschk.exe -uwcqv "Authenticated Users" * /accepteula
+accesschk.exe -uwcqv Everyone * /accepteula
 accesschk.exe -qdws "Authenticated Users" C:\Windows\ /accepteula
 accesschk.exe -qdws Users C:\Windows\ 
 
@@ -256,8 +257,3 @@ int main ()
 }
 
 i686-w64-mingw32-gcc -o useradd.exe useradd.c
-
-
-
-
-
