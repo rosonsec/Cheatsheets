@@ -80,7 +80,7 @@ accesschk.exe -uwcqv "User" *
 accesschk.exe -kvuqsw hklm\System\CurrentControlSet\services
 
 # UNQUOTED SERVICE PATHS
-wmic service get name,displayname,pathname,startmode |findstr /i "Auto" |findstr /i /v "C:\Windows\\" |findstr /i /v """ 
+wmic service get name,displayname,pathname,startmode | findstr /i /v "C:\Windows\\" | findstr /i /v """ 
 icacls "C:\Program Files (x86)\Program Folder" 
 sc qc Service1
 
