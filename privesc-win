@@ -70,6 +70,7 @@ dir /a-r-d /s /b
 # TOOLS
 - icacls
 DACL for files and folders
+https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc753525(v=ws.10)
 
 - accesschk.exe
 DACL for registry keys, files, processes, users and groups, and services
