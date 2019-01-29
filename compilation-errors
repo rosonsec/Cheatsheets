@@ -35,3 +35,10 @@ warning: implicit declaration of function ‘memcpy’ [-Wimplicit-function-decl
 
 - Fix:
 #include <string.h>
+
+
+# Error compliling:
+warning: implicit declaration of function ‘chmod’; did you mean ‘child’? [-Wimplicit-function-declaration]
+
+- Fix:
+#include <sys/stat.h>
