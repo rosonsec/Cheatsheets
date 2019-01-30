@@ -1,6 +1,7 @@
 # SMB Server
 - Server Kali Linux
 python /usr/share/doc/python-impacket/examples/smbserver.py share /tmp/exploits
+impacket-smbserver share /tmp/exploits
 - Client Linux
 smblient -L 10.10.10.10 --no-pass
 - Client Windows
