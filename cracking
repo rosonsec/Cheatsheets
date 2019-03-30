@@ -27,6 +27,11 @@ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.10 -V http-form-post
 wpscan -u 10.10.10.10 --wordlist /usr/share/wordlists/dirb/others/best1050.txt --username admin
 nmap -p 80 --script=http-wordpress-brute 10.10.10.10
 
+# Crack SAM and sytem hives
+*Previously obtained c:\windows\repair\SAM and c:\windows\repair\system
+samdump2 system SAM -o hashes.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt --format=LM hashes.txt
+
 # Password dictionary generation
 cewl www.domain.com -m 6 -w domain_dic.txt
 html2dic index.html | sort -u > index_dic.txt
