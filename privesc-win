@@ -2,51 +2,68 @@
 # INFORMATION GATHERING #
 #########################
 
- What system are we connected to? 
+# Operating System by command 
 systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
---> Get the hostname and username (if available) 
+
+# Operating System by file
+c:\windows\system32\eula.txt
+c:\windows\inf\layout.inf
+c:\windows\inf\license.rtf
+
+# Hostname and username
 hostname
 echo %username%
---> Learn about your environment 
+whoami
+
+# Environment 
 SET
 echo %PATH%
---> List other users on the box 
+
+# List users
 net users
 net user <username>
---> Networking/Routing Info 
+
+# Networking info 
 ipconfig /all
 route print
 arp -A
---> Active Network Connections 
+
+# Active connections 
 netstat -ano
---> Firewall Status (only on Win XP SP2 and above) 
+
+# Firewall Status (only on Win XP SP2 and above) 
 netsh firewall show state
 netsh firewall show config
 netsh advfirewall firewall show rule all
---> Scheduled tasks 
+
+# Scheduled tasks 
 schtasks /query /fo LIST /v
---> Check how Running processes link to started services 
+
+# Check how Running processes link to started services 
 tasklist /SVC       
---> Windows services that are started: 
+
+# Windows services that are started
 net start
---> Driver madness (3rd party drivers may have holes) 
+
+# Driver madness (3rd party drivers may have holes) 
 DRIVERQUERY
 
 # WMIC
-
 Windows Management Instrumentation Command Line 
 Windows XP requires admin 
---> Use wmic_info.bat script for automation 
+- Use wmic_info.bat script for automation 
 http://www.fuzzysecurity.com/tutorials/files/wmic_info.rar
     
---> System Info 
+# Hardware info 
 wmic COMPUTERSYSTEM get TotalPhysicalMemory,caption
 wmic CPU Get /Format:List
---> Check patch level 
+
+# Patch level 
 wmic qfe get Caption,Description,HotFixID,InstalledOn
 Look for privilege escalation exploits and look up their respective KB patch numbers. Such exploits include, but are not limited to, KiTrap0D (KB979682), MS11-011 (KB2393802), MS10-059 (KB982799), MS10-021 (KB979683), MS11-080 (KB2592799)
 After enumerating the OS version and Service Pack you should find out which privilege escalation vulnerabilities could be present. Using the KB patch numbers you can grep the installed patches to see if any are missing
 Search patches for given patch
+
 wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:"KB.." /C:"KB.."
 Examples: 
 Windows 2K SP4 - Windows 7 (x86): KiTrap0D (KB979682) 
@@ -57,10 +74,9 @@ wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:"KB2393802"
 
 # Find writeable files
 dir /a-r-d /s /b
-/a is to search for attributes. In this case r is read only and d is directory. The minus signs negate those attributes. So we're looking for writable files only.
-/s means recurse subdirectories
-/b means bare format. Path and filename only.
-
+/a search for attributes. r=read only; d=directory. The minus signs negate those attributes.
+/s recurse subdirectories
+/b bare format. Path and filename only.
 
 
 #######################
