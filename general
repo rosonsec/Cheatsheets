@@ -1,0 +1,26 @@
+# Avoiding certificate checking in Python
+// Method 1
+export PYTHONHTTPSVERIFY=0
+python exploit.py
+
+// Method 2
+PYTHONHTTPSVERIFY=0 python exploit.py
+
+// Method 3
+cp CA.crt /etc/pki/ca-trust/source/anchors/
+update-ca-trust force-enable
+update-ca-trust extract
+
+
+# Avoiding certificate checking in wget
+// Method 1
+wget http://10.10.10.10 --no-check-certificate
+
+// Method 2 (Permanent)
+echo "check_certificate = off" >> ~/.wgetrc
+
+# Avoiding certificate checking in curl
+// Method 1
+curl -k http://10.10.10.10
+curl --insecure http://10.10.10.10
+
