@@ -28,3 +28,6 @@ echo "check_certificate = off" >> ~/.wgetrc
 curl -k http://10.10.10.10
 curl --insecure http://10.10.10.10
 
+# Installing a CA certificate in Kali Linux (system level)
+cp CA.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
