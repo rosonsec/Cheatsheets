@@ -35,6 +35,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt --format=LM hashes.txt
 # Password dictionary generation
 cewl www.domain.com -m 6 -w domain_dic.txt
 html2dic index.html | sort -u > index_dic.txt
+crunch 8 8 0123456789 -o dic.txt
 
 # Password mutation
 vi /etc/john/john.conf
@@ -42,3 +43,16 @@ vi /etc/john/john.conf
 $[0-9]$[0-9]
 
 john --wordlist=domain_dic.txt --rules --stdout > domain_dic_mutated.txt
+
+# John config examples
+vi /etc/john/john.conf
+[List.Rules:addFinalLetter]
+# Add one letter to the end of each password
+$[A-Z]
+[List.Rules:addBeginXYZ]
+# Add one letter to the end of each password
+$[X-Z]
+
+# John execution examples
+john --wordlist=wordlist.txt --rules:addBeginXYZ --stdout > wordlist_muted.txt
+john --wordlist=wordlist.txt --rules:addFinalLetter --stdout > wordlist_muted.txt
