@@ -37,8 +37,18 @@ warning: implicit declaration of function ‘memcpy’ [-Wimplicit-function-decl
 #include <string.h>
 
 
-# Error compliling:
+# Error compiling:
 warning: implicit declaration of function ‘chmod’; did you mean ‘child’? [-Wimplicit-function-declaration]
 
 - Fix:
 #include <sys/stat.h>
+
+# Error compiling:
+warning: implicit declaration of function ‘read’; did you mean ‘fread’? [-Wimplicit-function-declaration]
+warning: implicit declaration of function ‘write’; did you mean ‘fwrite’? [-Wimplicit-function-declaration]
+warning: implicit declaration of function ‘close’; did you mean ‘pclose’? [-Wimplicit-function-declaration]
+
+-Fix:
+#include <unistd.h>
+
+
