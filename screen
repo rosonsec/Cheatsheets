@@ -1,0 +1,27 @@
+# Start a new session named ses1
+screen -s ses1
+
+# Start a session with logging enabled (file screenlog.0)
+screen -L
+
+# Start a session with logging enabled (file ses1.log)
+screen -s ses1 -L -Logfile ses1.log
+
+# List all screen sessions
+screen -ls
+
+# Attach to session ses1
+screen -r ses1
+
+# Deatach from session ses1
+Ctrl-A d 
+
+# Kill session 1
+Ctrl-A k
+
+# Scroll up
+Ctrl+A Esc and use the Up/Down or PgUp/PgDn keys or your mouse
+
+# List commands
+Ctrl-A ?
+
