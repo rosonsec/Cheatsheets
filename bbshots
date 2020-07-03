@@ -1,0 +1,1 @@
+subfinder -d "domain.com" | httprobe | hakrawler -plain | kxss
