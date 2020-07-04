@@ -1,1 +1,2 @@
-subfinder -d "domain.com" | httprobe | hakrawler -plain | kxss
+subfinder -d "target.com" | httprobe | hakrawler -plain | kxss
+assetfinder target.com | hakrawler | kxss
