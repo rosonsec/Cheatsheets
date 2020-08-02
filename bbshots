@@ -1,2 +1,17 @@
+- Subdomain enumeration
+subfinder -d target.com --silent | httprobe | tee -a subdomains.txt
+amass enum --passive -d target.com | httprobe | tee -a subdomains.txt
+assetfinder -subs-only target.com | httprobe | tee -a subdomains.txt
+
+- Endpoints discovery
+cat subdomains.txt | waybackurls | tee -a wayback.txt
+cat subdomains.txt | hakrawler -depth 4 -plain | tee -a spider.txt
+
+- Parameters discovery
+python3 paramspider.py --domain target.com --exclude svg,jpg,js,css --output params.txt
+cat subdomains.txt | gau | grep "=" | tee -a params.txt
+
+- XSS
 subfinder -d "target.com" | httprobe | hakrawler -plain | kxss
 assetfinder target.com | hakrawler | kxss
+
