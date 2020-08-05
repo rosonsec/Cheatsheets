@@ -12,6 +12,7 @@ python3 paramspider.py --domain target.com --exclude svg,jpg,js,css --output par
 cat subdomains.txt | gau | grep "=" | tee -a params.txt
 
 - XSS
+cat domains.txt | httprobe | gau | kxss
 subfinder -d "target.com" | httprobe | hakrawler -plain | kxss
 assetfinder target.com | hakrawler | kxss
 
