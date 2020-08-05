@@ -1,7 +1,8 @@
 - Subdomain enumeration
 subfinder -d target.com --silent | httprobe | tee -a subdomains.txt
 amass enum --passive -d target.com | httprobe | tee -a subdomains.txt
-assetfinder -subs-only target.com | httprobe | tee -a subdomains.txt
+assetfinder -subs-only target.com | filter-resolved | tee -a subdomains.txt
+
 
 - Endpoints discovery
 cat subdomains.txt | waybackurls | tee -a wayback.txt
