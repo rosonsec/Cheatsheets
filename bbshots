@@ -18,6 +18,7 @@ cat subdomains.txt | gau | grep "=" | tee -a params.txt
 cat domains.txt | httprobe | gau | kxss
 subfinder -d "target.com" | httprobe | hakrawler -plain | kxss
 assetfinder target.com | hakrawler | kxss
+python3 paramspider.py -d target.com | dalfox pipe
 
 - Find javascript files 
 gau target.com | grep '\.js$' | httpx -silent -status-code -mc 200 -content-type | grep 'application/javascript'
