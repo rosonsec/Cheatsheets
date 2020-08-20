@@ -20,4 +20,9 @@ dT[space]
 # Delete next word
 dt[space] 
 
+# Undo (Normal mode)
+u, :u or :undo
+
+# Redo (Normal mode)
+Ctrl-R or :redo
 
